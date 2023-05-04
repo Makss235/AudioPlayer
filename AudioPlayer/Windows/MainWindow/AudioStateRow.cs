@@ -1,6 +1,15 @@
-﻿namespace AudioPlayer.Windows.MainWindow
+﻿using System.Windows.Controls;
+
+namespace AudioPlayer.Windows.MainWindow
 {
-    internal class AudioStateRow
+    public partial class MainWindow
     {
+        private Grid audioStateGrid;
+
+        private Grid ICAudioStateRow()
+        {
+            audioStateGrid = new Grid();
+            return audioStateGrid;
+        }
     }
 }
