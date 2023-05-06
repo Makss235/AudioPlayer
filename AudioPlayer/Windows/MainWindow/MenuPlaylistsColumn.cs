@@ -1,4 +1,5 @@
-﻿using System;
+﻿using AudioPlayer.Widgets.Playlists;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -14,6 +15,10 @@ namespace AudioPlayer.Windows.MainWindow
         private Grid ICMenuPlaylists()
         {
             menuPlaylistsGrid = new Grid();
+            menuPlaylistsGrid.Children.Add(new PlaylistButton());
+
+            Grid.SetRow(menuPlaylistsGrid, 0);
+            Grid.SetColumn(menuPlaylistsGrid, 0);
             return menuPlaylistsGrid;
         }
     }
