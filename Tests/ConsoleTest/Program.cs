@@ -3,5 +3,5 @@ string artist = tagFile.Tag.FirstAlbumArtist;
 string album = tagFile.Tag.Album;
 string title = tagFile.Properties.Duration.ToString("mm\\:ss");
 Console.WriteLine(title);
-Console.WriteLine(album);
 Console.WriteLine(artist);
+Console.WriteLine(String.Join(", ", tagFile.Tag.Performers));
