@@ -1,10 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Windows.Controls;
+﻿using System.Collections.Generic;
 
-namespace AudioPlayer.Widgets.Playlists
+namespace AudioPlayer.Widgets.Playlists.Audio
 {
-    public class MusicComposition : UserControl
+    public struct AudioInfo
     {
         public string FilePath { get; set; }
         public string Title { get; set; }
@@ -16,7 +14,7 @@ namespace AudioPlayer.Widgets.Playlists
 
         private TagLib.File audioFile;
 
-        public MusicComposition(string filePath)
+        public AudioInfo(string filePath)
         {
             FilePath = filePath;
 
@@ -26,6 +24,7 @@ namespace AudioPlayer.Widgets.Playlists
             Artists = string.Join(", ", audioFile.Tag.Performers);
             Duration = audioFile.Properties.Duration.ToString("mm\\:ss");
             IsLiked = false;
+            Playlists = new List<string>();
         }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using AudioPlayer.Widgets.Base;
+using AudioPlayer.Widgets.Playlists.Audio;
 using System.Collections.ObjectModel;
 using System.Windows;
 using System.Windows.Controls;
@@ -9,7 +10,7 @@ namespace AudioPlayer.Widgets.Playlists
     public class PlaylistPage : PageBase
     {
         public string PlaylistName { get; set; }
-        public ObservableCollection<MusicComposition> MusicCompositions { get; set; }
+        public ObservableCollection<AudioElement> AudioElements { get; set; }
 
         private Border mainBorder;
 
