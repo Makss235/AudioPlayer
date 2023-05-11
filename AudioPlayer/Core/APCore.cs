@@ -1,12 +1,11 @@
-﻿using AudioPlayer.Widgets.Playlists.Audio;
-using System;
+﻿using System;
 using System.Collections.ObjectModel;
 using System.IO;
 using System.Windows.Media;
 
 namespace AudioPlayer.Core
 {
-    public static class AudioPlayerCore
+    public static class APCore
     {
         public static ObservableCollection<AudioInfo> QueueAudio { get; private set; }
 
@@ -25,7 +24,7 @@ namespace AudioPlayer.Core
 
         private static MediaPlayer mediaPlayer;
 
-        static AudioPlayerCore()
+        static APCore()
         {
             CurrentAudioChanged += AudioPlayerCore_CurrentAudioChanged;
 
@@ -54,12 +53,7 @@ namespace AudioPlayer.Core
         private static void InitMediaPlayer()
         {
             mediaPlayer = new MediaPlayer();
-            mediaPlayer.MediaEnded += MediaPlayer_MediaEnded;
-        }
-
-        private static void MediaPlayer_MediaEnded(object? sender, EventArgs e)
-        {
-            Play();
+            mediaPlayer.MediaEnded += (s, e) => Play();
         }
 
         private static void InitQueueAudio()

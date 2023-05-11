@@ -1,11 +1,4 @@
-﻿using AudioPlayer.Core;
-using AudioPlayer.Widgets.Playlists.Audio;
-using System;
-using System.Collections.ObjectModel;
-using System.IO;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Media;
+﻿using System.Windows.Controls;
 
 namespace AudioPlayer.Windows.MainWindow
 {
@@ -15,8 +8,6 @@ namespace AudioPlayer.Windows.MainWindow
 
         private Grid ICAudioStateRow()
         {
-            AudioPlayerCore.Initialize();
-            AudioPlayerCore.Play();
             audioStateGrid = new Grid();
             return audioStateGrid;
         }

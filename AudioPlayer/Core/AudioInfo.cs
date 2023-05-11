@@ -1,6 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
-namespace AudioPlayer.Widgets.Playlists.Audio
+namespace AudioPlayer.Core
 {
     public struct AudioInfo
     {
@@ -8,7 +9,8 @@ namespace AudioPlayer.Widgets.Playlists.Audio
         public string Title { get; set; }
         public string Album { get; set; }
         public string Artists { get; set; }
-        public string Duration { get; set; }
+        public string DurationString { get; set; }
+        public TimeSpan Duration { get; set; }
         public bool IsLiked { get; set; }
         public List<string> Playlists { get; set; }
 
@@ -22,7 +24,8 @@ namespace AudioPlayer.Widgets.Playlists.Audio
             Title = audioFile.Tag.Title;
             Album = audioFile.Tag.Album;
             Artists = string.Join(", ", audioFile.Tag.Performers);
-            Duration = audioFile.Properties.Duration.ToString("mm\\:ss");
+            Duration = audioFile.Properties.Duration;
+            DurationString = Duration.ToString("mm\\:ss");
             IsLiked = false;
             Playlists = new List<string>();
         }

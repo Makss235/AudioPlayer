@@ -1,4 +1,5 @@
-﻿using AudioPlayer.Windows.MainWindow;
+﻿using AudioPlayer.Resources.Data;
+using AudioPlayer.Windows.MainWindow;
 using System;
 using System.Windows;
 
@@ -9,6 +10,7 @@ namespace AudioPlayer
         [STAThread]
         static void Main(string[] args)
         {
+            Playlists.Initialize();
             MainWindow mainWindow = new MainWindow();
             mainWindow.Show();
             Application application = new Application();
