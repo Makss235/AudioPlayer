@@ -1,6 +1,7 @@
 ﻿using AudioPlayer.Resources.Serialize;
 using System;
 using System.Collections.Generic;
+using System.Windows;
 using System.Windows.Media.Imaging;
 
 namespace AudioPlayer.Core
@@ -8,16 +9,18 @@ namespace AudioPlayer.Core
     public struct PlaylistInfo
     {
         public string Name { get; set; }
+        public string IconSource { get; set; }
         public BitmapImage Icon { get; set; }
         public string TotalDurationString { get; set; }
         public TimeSpan TotalDuration { get; set; }
         public List<AudioInfo> AudioCompositions { get; set; }
         
-        public PlaylistInfo(string name, BitmapImage icon,
+        public PlaylistInfo(string name, string iconSource,
             List<AudioInfo> audioCompositions)
         {
             Name = name;
-            Icon = icon;
+            IconSource = iconSource;
+            Icon = new BitmapImage(new Uri(iconSource, UriKind.Absolute));
             AudioCompositions = audioCompositions;
             TotalDuration = new TimeSpan();
             TotalDurationString = string.Empty;
@@ -28,6 +31,7 @@ namespace AudioPlayer.Core
         public PlaylistInfo(PlaylistObject playlistObject)
         {
             Name = playlistObject.Name;
+            IconSource = playlistObject.IconPath;
             Icon = new BitmapImage(new Uri(playlistObject.IconPath, UriKind.Absolute));
 
             AudioCompositions = new List<AudioInfo>();
@@ -47,9 +51,9 @@ namespace AudioPlayer.Core
             TotalDuration = new TimeSpan();
             foreach (var item in AudioCompositions)
             {
-                TotalDuration.Add(item.Duration);
+                TotalDuration += item.Duration;
             }
-            TotalDurationString = TotalDuration.ToString("mm\\:ss");
+            TotalDurationString = TotalDuration.ToString("hh\\:mm\\:ss");
         }
     }
 }
