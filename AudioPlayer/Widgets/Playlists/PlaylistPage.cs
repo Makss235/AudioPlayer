@@ -1,5 +1,6 @@
 ﻿using AudioPlayer.Core;
 using AudioPlayer.Widgets.Base;
+using AudioPlayer.Windows.MainWindow;
 using System;
 using System.Linq;
 using System.Windows;
@@ -19,21 +20,18 @@ namespace AudioPlayer.Widgets.Playlists
             set
             {
                 _Info = value;
-                //InfoChanged?.Invoke();
             }
         }
-
-        //public event Action InfoChanged;
 
         private DataGrid dataGrid;
         private Grid mainGrid;
         private Border mainBorder;
 
-        public PlaylistPage(double width, double height, Visibility visibility, PlaylistInfo playlistInfo) : 
+        public PlaylistPage(double width, double height, 
+            Visibility visibility, PlaylistInfo playlistInfo) :
             base(width, height, visibility)
         {
             Info = playlistInfo;
-            //InfoChanged += PlaylistPage_InfoChanged;
 
             InitializeComponent();
         }
@@ -48,6 +46,8 @@ namespace AudioPlayer.Widgets.Playlists
 
             RowDefinition audioCompositionsRow = new RowDefinition()
             { Height = new GridLength(1, GridUnitType.Auto) };
+
+            #region Header
 
             Image image = new Image()
             {
@@ -107,7 +107,7 @@ namespace AudioPlayer.Widgets.Playlists
                 Fill = Brushes.AliceBlue,
                 Height = 8,
                 Width = 8,
-                Margin = new Thickness(15, 3, 15, 0)
+                Margin = new Thickness(12, 3, 12, 0)
             };
 
             TextBlock textBlock3 = new TextBlock()
@@ -129,7 +129,7 @@ namespace AudioPlayer.Widgets.Playlists
             stackPanel2.Children.Add(textBlock3);
 
             StackPanel stackPanel1 = new StackPanel()
-            { 
+            {
                 Orientation = Orientation.Vertical,
                 Margin = new Thickness(30),
                 VerticalAlignment = VerticalAlignment.Center
@@ -138,7 +138,7 @@ namespace AudioPlayer.Widgets.Playlists
             stackPanel1.Children.Add(stackPanel2);
 
             StackPanel stackPanel = new StackPanel()
-            { 
+            {
                 Orientation = Orientation.Horizontal,
                 VerticalAlignment = VerticalAlignment.Top,
                 Margin = new Thickness(30),
@@ -148,59 +148,32 @@ namespace AudioPlayer.Widgets.Playlists
             stackPanel.Children.Add(image);
             stackPanel.Children.Add(stackPanel1);
 
-            DataGridTextColumn dataGridColumn = new DataGridTextColumn()
-            {
-                Header = "Title",
-                Binding = new Binding("Title")
-            };
-            DataGridTextColumn dataGridColumn2 = new DataGridTextColumn()
-            {
-                Header = "Autor",
-                Binding = new Binding("Artists")
-            };
-            DataGridTextColumn dataGridColumn1 = new DataGridTextColumn()
-            {
-                Header = "Duration",
-                Binding = new Binding("DurationString")
-            };
-            DataGridTextColumn dataGridColumn3 = new DataGridTextColumn()
-            {
-                Header = "IsLiked",
-                Binding = new Binding("IsLiked")
-            };
+            #endregion
 
-            var fff = new Style() { TargetType = typeof(DataGridCell)};
-            fff.Setters.Add(new Setter(BackgroundProperty, Brushes.Transparent));
+            ItemsControl itemsControl = new ItemsControl();
+            itemsControl.ItemsSource = Info.AudioCompositions;
+            itemsControl.Margin = new Thickness(10);
 
-            dataGrid = new DataGrid();
-            dataGrid.Columns.Add(dataGridColumn);
-            dataGrid.Columns.Add(dataGridColumn2);
-            dataGrid.Columns.Add(dataGridColumn1);
-            dataGrid.Columns.Add(dataGridColumn3);
-            dataGrid.ItemsSource = Info.AudioCompositions;
-            dataGrid.AutoGenerateColumns = false;
-            dataGrid.CellStyle = fff;
-            Grid.SetRow(dataGrid, 2);
+            DataTemplate dataTemplate = new DataTemplate();
+            FrameworkElementFactory stackPanelFactory = 
+                new FrameworkElementFactory(typeof(AudioTableElement));
+
+            dataTemplate.VisualTree = stackPanelFactory;
+            itemsControl.ItemTemplate = dataTemplate;
+            Grid.SetRow(itemsControl, 2);
 
             mainGrid = new Grid();
             mainGrid.RowDefinitions.Add(infoPlaylistRow);
             mainGrid.RowDefinitions.Add(operationsRow);
             mainGrid.RowDefinitions.Add(audioCompositionsRow);
             mainGrid.Children.Add(stackPanel);
-            mainGrid.Children.Add(dataGrid);
+            mainGrid.Children.Add(itemsControl);
 
             mainBorder = new Border();
             mainBorder.Background = Brushes.Transparent;
             mainBorder.Child = mainGrid;
 
             Content = mainBorder;
-            MessageBox.Show(Info.ID);
         }
-
-        //private void PlaylistPage_InfoChanged()
-        //{
-        //    dataGrid.ItemsSource = Info.AudioCompositions;
-        //    contentPresenter.Content = Info.TotalDurationString;
-        //}
     }
 }

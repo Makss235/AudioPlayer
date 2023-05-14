@@ -9,8 +9,12 @@ namespace AudioPlayer.Windows.MainWindow
 
         private Grid ICMenuPlaylists()
         {
+            StackPanel stackPanel = new StackPanel()
+            { Orientation = Orientation.Vertical };
+            stackPanel.Children.Add(new PlaylistButton(pp));
+
             menuPlaylistsGrid = new Grid();
-            menuPlaylistsGrid.Children.Add(new PlaylistButton());
+            menuPlaylistsGrid.Children.Add(new PlaylistButton(pp));
 
             Grid.SetRow(menuPlaylistsGrid, 0);
             Grid.SetColumn(menuPlaylistsGrid, 0);

@@ -7,15 +7,19 @@ namespace AudioPlayer.Windows.MainWindow
 {
     public partial class MainWindow
     {
+        private PlaylistPage pp;
         private Grid mainFieldGrid;
 
         private Grid ICMainField()
         {
             mainFieldGrid = new Grid();
-            mainFieldGrid.Children.Add(new PlaylistPage(mainFieldGrid.Width,
+
+            pp = new PlaylistPage(mainFieldGrid.Width,
                 mainFieldGrid.Height,
                 Visibility.Visible,
-                Playlists.PlaylistsInfo[0]));
+                PlaylistsData.PlaylistsInfo[0]);
+            
+            mainFieldGrid.Children.Add(pp);
 
             Grid.SetRow(mainFieldGrid, 0);
             Grid.SetColumn(mainFieldGrid, 2);

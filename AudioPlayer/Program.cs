@@ -10,7 +10,7 @@ namespace AudioPlayer
         [STAThread]
         static void Main(string[] args)
         {
-            Playlists.Initialize();
+            PlaylistsData.Initialize();
             MainWindow mainWindow = new MainWindow();
             mainWindow.Show();
             Application application = new Application();

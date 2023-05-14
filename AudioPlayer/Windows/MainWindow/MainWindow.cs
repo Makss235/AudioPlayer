@@ -14,7 +14,7 @@ namespace AudioPlayer.Windows.MainWindow
 
         public MainWindow()
         {
-            Height = 650;
+            Height = 850;
             Width = 850;
 
             WindowStartupLocation = WindowStartupLocation.CenterScreen;
@@ -71,14 +71,17 @@ namespace AudioPlayer.Windows.MainWindow
             Grid.SetRow(gridSplitter, 0);
             Grid.SetColumn(gridSplitter, 1);
 
+            ICMainField();
+            ICMenuPlaylists();
+
             Grid firstRowGrid = new Grid();
             Grid.SetRow(firstRowGrid, 0);
             firstRowGrid.ColumnDefinitions.Add(menuPlaylistsCD);
             firstRowGrid.ColumnDefinitions.Add(gridSplitterCD);
             firstRowGrid.ColumnDefinitions.Add(mainFieldCD);
-            firstRowGrid.Children.Add(ICMenuPlaylists());
+            firstRowGrid.Children.Add(menuPlaylistsGrid);
             firstRowGrid.Children.Add(gridSplitter);
-            firstRowGrid.Children.Add(ICMainField());
+            firstRowGrid.Children.Add(mainFieldGrid);
 
             Grid mainGrid = new Grid();
             mainGrid.RowDefinitions.Add(firstRD);
@@ -92,7 +95,7 @@ namespace AudioPlayer.Windows.MainWindow
                 { R = 14, G = 12, B = 30, A = 255 }),
                 CornerRadius = new CornerRadius(10),
                 Width = 800,
-                Height = 600
+                Height = 800
             };
             mainBorder.Child = mainGrid;
 

@@ -7,7 +7,7 @@ using System.Text.Json;
 
 namespace AudioPlayer.Resources.Data
 {
-    public static class Playlists
+    public static class PlaylistsData
     {
         public static List<PlaylistObject> PlaylistObjects { get; set; }
         public static List<PlaylistInfo> PlaylistsInfo { get; set; }
