@@ -1,7 +1,8 @@
 ﻿using AudioPlayer.Core;
 using AudioPlayer.Resources.Serialize;
+using System;
 using System.Collections.Generic;
-using System.Text;
+using System.IO;
 using System.Text.Json;
 
 namespace AudioPlayer.Resources.Data
@@ -13,7 +14,7 @@ namespace AudioPlayer.Resources.Data
 
         public static void Initialize()
         {
-            var str = Encoding.Default.GetString(Properties.Resources.Playlists);
+            var str = File.ReadAllText(Path.Combine(Environment.CurrentDirectory, "Data\\Playlists.json"));
             PlaylistObjects = JsonSerializer.Deserialize<List<PlaylistObject>>(str);
 
             PlaylistsInfo = new List<PlaylistInfo>();
