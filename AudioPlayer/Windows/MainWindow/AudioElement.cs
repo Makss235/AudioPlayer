@@ -1,14 +1,19 @@
-﻿using System.Windows.Controls;
+﻿using AudioPlayer.Core;
+using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Media;
-using System.Windows;
 
 namespace AudioPlayer.Windows.MainWindow
 {
-    public class AudioTableElement : ContentControl
+    public class AudioElement : ContentControl
     {
-        public AudioTableElement()
+        public AudioInfo AudioInfo { get; set; }
+
+        public AudioElement(AudioInfo audioInfo)
         {
+            AudioInfo = audioInfo;
+
             Style style = new Style()
             { TargetType = typeof(TextBlock) };
             style.Setters.Add(new Setter(TextBlock.ForegroundProperty, Brushes.AliceBlue));
@@ -19,16 +24,26 @@ namespace AudioPlayer.Windows.MainWindow
             style.Setters.Add(new Setter(TextBlock.MarginProperty, new Thickness(10, 0, 10, 0)));
 
             TextBlock textBlock = new TextBlock()
-            { Width = 200, Style = style };
-            textBlock.SetBinding(TextBlock.TextProperty, new Binding("Title"));
+            { 
+                Width = 200, 
+                Style = style,
+                Text = AudioInfo.Title
+            };
+            
 
             TextBlock textBlock1 = new TextBlock()
-            { Width = 150, Style = style };
-            textBlock1.SetBinding(TextBlock.TextProperty, new Binding("Artists"));
+            {
+                Width = 150,
+                Style = style,
+                Text = AudioInfo.Artists
+            };
 
             TextBlock textBlock2 = new TextBlock()
-            { Width = 50, Style = style };
-            textBlock2.SetBinding(TextBlock.TextProperty, new Binding("DurationString"));
+            {
+                Width = 50,
+                Style = style,
+                Text = AudioInfo.DurationString
+            };
 
             StackPanel stackPanel = new StackPanel()
             { Orientation = Orientation.Horizontal };

@@ -15,7 +15,7 @@ namespace AudioPlayer.Windows.MainWindow
         public MainWindow()
         {
             Height = 850;
-            Width = 850;
+            Width = 950;
 
             WindowStartupLocation = WindowStartupLocation.CenterScreen;
             ResizeMode = ResizeMode.NoResize;
@@ -94,8 +94,8 @@ namespace AudioPlayer.Windows.MainWindow
                 Background = new SolidColorBrush(new Color()
                 { R = 14, G = 12, B = 30, A = 255 }),
                 CornerRadius = new CornerRadius(10),
-                Width = 800,
-                Height = 800
+                Width = this.Width - 50,
+                Height = this.Height - 50
             };
             mainBorder.Child = mainGrid;
 

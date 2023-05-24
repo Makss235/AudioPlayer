@@ -2,6 +2,7 @@
 using AudioPlayer.Widgets.Base;
 using AudioPlayer.Windows.MainWindow;
 using System;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
@@ -22,6 +23,8 @@ namespace AudioPlayer.Widgets.Playlists
                 _Info = value;
             }
         }
+
+        public ObservableCollection<AudioElement> AudioElements { get; set; }
 
         private DataGrid dataGrid;
         private Grid mainGrid;
@@ -150,16 +153,13 @@ namespace AudioPlayer.Widgets.Playlists
 
             #endregion
 
+            AudioElements = new ObservableCollection<AudioElement>();
+            foreach (var item in Info.AudioCompositions)
+                AudioElements.Add(new AudioElement(item));
+
             ItemsControl itemsControl = new ItemsControl();
-            itemsControl.ItemsSource = Info.AudioCompositions;
+            itemsControl.ItemsSource = AudioElements;
             itemsControl.Margin = new Thickness(10);
-
-            DataTemplate dataTemplate = new DataTemplate();
-            FrameworkElementFactory stackPanelFactory = 
-                new FrameworkElementFactory(typeof(AudioTableElement));
-
-            dataTemplate.VisualTree = stackPanelFactory;
-            itemsControl.ItemTemplate = dataTemplate;
             Grid.SetRow(itemsControl, 2);
 
             mainGrid = new Grid();
@@ -173,7 +173,14 @@ namespace AudioPlayer.Widgets.Playlists
             mainBorder.Background = Brushes.Transparent;
             mainBorder.Child = mainGrid;
 
+            SizeChanged += PlaylistPage_SizeChanged;
+
             Content = mainBorder;
+        }
+
+        private void PlaylistPage_SizeChanged(object sender, SizeChangedEventArgs e)
+        {
+            
         }
     }
 }

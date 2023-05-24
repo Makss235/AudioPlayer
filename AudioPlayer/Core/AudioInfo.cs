@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
+using System.Windows;
 
 namespace AudioPlayer.Core
 {
@@ -19,11 +21,17 @@ namespace AudioPlayer.Core
         public AudioInfo(string filePath)
         {
             FilePath = filePath;
-
             audioFile = TagLib.File.Create(filePath);
+
             Title = audioFile.Tag.Title;
+            if (String.IsNullOrEmpty(Title)) Title = "Unknown";
+
             Album = audioFile.Tag.Album;
+            if (String.IsNullOrEmpty(Album)) Album = "Unknown";
+
             Artists = string.Join(", ", audioFile.Tag.Performers);
+            if (String.IsNullOrEmpty(Artists)) Artists = "Unknown";
+
             Duration = audioFile.Properties.Duration;
             DurationString = Duration.ToString("mm\\:ss");
             IsLiked = false;
